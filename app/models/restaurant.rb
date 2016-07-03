@@ -37,9 +37,11 @@ class Restaurant < ActiveRecord::Base
                        address: restaurant_address,
                        image_url: restaurant_image,
                        rating: restaurant_rating,
-                       rating_img_url: restaurant_rating_img, 
-                       url: restaurant_url, 
-                       distance: restaurant_distance)
+                       rating_img_url: restaurant_rating_img,
+                       url: restaurant_url,
+                       distance: restaurant_distance,
+                       latitude: restaurant.location.coordinate.latitude,
+                       longitude: restaurant.location.coordinate.longitude)
     end
   end
 end

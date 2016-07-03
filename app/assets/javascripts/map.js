@@ -13,7 +13,7 @@ var directionsDisplay,
 
 $(function(){
   $("#directions-panel").hide();
-  $("#search_again_button").hide();
+  $("#instructions").hide();
   $("#stop_point_miles").hide();
 
   $("#method" ).change(function() {
@@ -52,7 +52,7 @@ $(function(){
       // when button is clicked the form and blurb are hidden and search again button appears
       $("#map_options").hide();
       $("#blurb").hide();
-      $("#search_again_button").show();
+      $("#instructions").show();
 
       //a new map is loaded and old markers are removed
       createMap();
@@ -64,9 +64,9 @@ $(function(){
       function check(){
       //makes sure ajax doesn't fire before calcRoute is finished
         if (check_done === "done"){
-        console.log("done!");
-        console.log(stopPointLat);
-        console.log(stopPointLon);
+        // console.log("done!");
+        // console.log(stopPointLat);
+        // console.log(stopPointLon);
           //info from form sent to restaurants controller
           $.ajax({
              url:'/restaurants/yelp_search',
@@ -80,11 +80,9 @@ $(function(){
              )
           });
         } else {
-          console.log("Are ya done yet???");
           setTimeout(check, 1000);
         }
       }
-      console.log("You clicked?");
     });
   }
     $("#search_again_button").click(function(event){
@@ -93,7 +91,7 @@ $(function(){
       $("#map_options").show();
       $("#blurb").show();
       $("#directions-panel").hide();
-      $("#search_again_button").hide();
+      $("#instructions").hide();
     });
 
   google.maps.event.addDomListener(window, "load", initialize);
@@ -120,14 +118,14 @@ $(function(){
         // endLocation = response.routes[0].legs[0].end_location;
         // console.log(startLocation);
         // console.log(endLocation);
-        console.log(response);
+        // console.log(response);
 
         var method = $("#method").val();
         //users choice of hours or miles determines whether the stop point will be calculated the via distance or time method
         var stopPoint = parseInt($(select).val());
         //this is the value in either miles or or hours
-        console.log(method);
-        console.log(stopPoint);
+        // console.log(method);
+        // console.log(stopPoint);
         getStopPoint(response, stopPoint, method);
       }
     });
@@ -146,8 +144,8 @@ $(function(){
           strokeColor: 'rgba(0,0,0,0)',
           strokeWeight: 1
         });
-    console.log("totalTime " + totalTime);
-    console.log("totalDist " + totalDist);
+    // console.log("totalTime " + totalTime);
+    // console.log("totalDist " + totalDist);
 
     var distance;
     var time;
@@ -187,38 +185,36 @@ $(function(){
 
     stopPointLatLonObject = polyline.GetPointAtDistance(distance);
     //uses epoly function to determine the appropriate stop point along the route given the distance calculated from user's choice (in miles or hours)
-    placeMarker(stopPointLatLonObject);
+    marker = new google.maps.Marker({
+      position: stopPointLatLonObject,
+      map: map
+    });
+    markers.push(marker);
     //places marker at stop point
 
-    stopPointLat = stopPointLatLonObject["G"];
-    stopPointLon = stopPointLatLonObject["K"];
+    stopPointLat = stopPointLatLonObject.lat();
+    stopPointLon = stopPointLatLonObject.lng();
     check_done = "done";
     console.log("stopPointLat " + stopPointLat);
     console.log("stopPointLon " + stopPointLon);
-  }
-
-  function placeMarker(location) {
-    marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-    markers.push(marker);
   }
 
   function placeRestaurantMarkers(restaurants) {
     var infowindow = new google.maps.InfoWindow();
     //sets up a new info window object
 
-    var icon = new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/icons/purple-dot.png");
+    var icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
     //sets pins to the purple icon
 
-    var bounds = new google.maps.LatLngBounds(stopPointLatLonObject);
+    stopPointLat = stopPointLatLonObject.lat();
+    stopPointLon = stopPointLatLonObject.lng();
+    var bounds = new google.maps.LatLngBounds({ lat: stopPointLat, lng: stopPointLon});
     //sets the center of map bounds based on the stopping point
 
     for (i = 0; i < restaurants.length; i++) {
       //iterates through the list of restaurant options
 
-      var position = new google.maps.LatLng(restaurants[i][0], restaurants[i][1]);
+      var position = { lat: restaurants[i][0], lng:  restaurants[i][1] };
       //determines position for pin based on restaurant lat/lon
 
       marker = new google.maps.Marker({
@@ -228,22 +224,26 @@ $(function(){
       });
       //places new google marker onto map in that position
 
-      bounds.extend(position);
-      //extends bounds of the map to display the pin
+      bounds.extend(new google.maps.LatLng(position));
+      // //extends bounds of the map to display the pin
       map.fitBounds(bounds);
-      //fits the map to those bounds
-      //acts as a zoom
+      // //fits the map to those bounds
+      // //acts as a zoom
 
       //sets click listener for marker
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        console.log("Restaurant: " + restaurants[i][2]);
-        //when clicked...
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+        //on hover...
         return function() {
-          $("#directions-panel").show();
           infowindow.setContent('<div class="infowindow"><div class="row"><div class="col-xs-3"><img src="' + restaurants[i][3] + '"></div><div class="col-xs-8 col-xs-offset-1"><p><strong>' + restaurants[i][2] + '</strong></p><p>Rating: ' + '  <img src="' + restaurants[i][5] + '"></p><p>' + restaurants[i][6] + '</p></div></div><div class="row"><div class="col-xs-12"><p><a href="' + restaurants[i][7] + '" target="_blank">' + restaurants[i][7] + '</a></p></div></div>');
           //content of info window is set
           infowindow.open(map, marker);
           //info window pops up
+        }
+      })(marker, i));
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        //when clicked...
+        return function() {
+          $("#directions-panel").show();
           restaurant_directions(restaurants[i][6]);
           //directions to and from the restaurant are listed and displayed on the map
         }

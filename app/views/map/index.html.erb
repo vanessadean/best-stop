@@ -1,5 +1,9 @@
 <div id="about" class="row">
 
+  <div id="blurb" class="col-lg-12">
+    <p>Sick of horrible rest stop food? Find something nicer on the way!</p>
+  </div>
+
   <div id="map_options" class="col-xs-12 col-md-7 col-lg-6">
     <form>
       <p>Start: <input type="text" name="start" id="start" autocomplete="on" value="Pittsburgh, PA"/>
@@ -19,26 +23,24 @@
         <option value="16093">10</option></p>
       </select> miles</p>
       <p>What's important to you?
-      <input type="radio" id="sort" name="sort" value="1" class=".radio-inline">  Closest     
+      <input type="radio" id="sort" name="sort" value="1" class=".radio-inline">  Closest
       <input type="radio" id="sort" name="sort" value="2" class=".radio-inline">  Highest rated</p>
       <input class="btn btn-lg btn-primary" type="submit" id="map_options_submit">
     </form>
   </div>
 
-  <div id="blurb" class="col-xs-12 col-md-5 col-lg-6">
-    <p>Sick of horrible rest stop food?</p>
-    <p>Find something nicer on the way!</p>
-  </div>
-
-  <div class="btn btn-lg btn-primary" id="search_again_button">
-    Search Again
+  <div id="instructions" class="col-lg-8">
+    <p>Hover over a pin to see restaurant details. Click for detailed directions.</p>
+    <div class="btn btn-lg btn-primary" id="search_again_button">
+      Search Again
+    </div>
   </div>
 
   <div class="row">
     <div class="col-xs-12 col-md-8">
       <div id="map" style='height: 400px;'></div>
     </div>
-    
+
     <div class="col-xs-12 col-md-4">
       <div id="directions-panel" style='height: 400px; overflow: scroll; background: white'></div>
     </div>

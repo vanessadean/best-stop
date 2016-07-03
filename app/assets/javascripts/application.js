@@ -12,9 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require underscore
 //= require v3_epoly
 //= require map
 //= require bootstrap.min
-//= require custom.js
 //= require_tree .
