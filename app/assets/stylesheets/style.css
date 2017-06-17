@@ -24,9 +24,6 @@
   text-decoration: none;
 }
 
-#nav-rest:hover {
-}
-
 #nav-best {
   padding-top: 5px;
   font-size: 36px;
@@ -70,6 +67,7 @@ input > p {
 #map, #directions-panel {
   margin-top: 25px;
   margin-bottom: 10px;
+  margin-left: 10px;
   border: 5px solid #333;
   height: 300px;
 }
@@ -95,6 +93,10 @@ input > p {
   margin-top: 10px;
 }
 
+#search_again {
+  display: none;
+}
+
 #map_options_submit {
   background: rgba(128, 128, 128, .90);
   border: none;
@@ -103,7 +105,7 @@ input > p {
 .footer {
   font-family: "Waiting for the Sunrise", Helvetica, Arial, sans-serif;
   font-size: 20px;
-  background-color: rgba(128, 128, 128, 1);
+  background-color: #808080;
   color: white;
   text-align: center;
   padding-bottom: 5px;
@@ -136,6 +138,18 @@ input > p {
 
 .infowindow > img {
   margin-bottom: 5px;
+}
+
+.searching {
+  color: white;
+  font-family: "Dosis", Helvetica, Arial, sans-serif;
+  font-size: 25px;
+  display: none;
+  margin-top: 10px;
+}
+
+#map_options_submit {
+  background-color: rgb(128, 128, 128);
 }
 
 @media (max-width: 600px) {
@@ -251,8 +265,3 @@ select.input-lg {
   height: 40px !important;
   line-height: 40px !important;
 }
-
-#map_options_submit {
-  background-color: rgb(128, 128, 128);
-}
-

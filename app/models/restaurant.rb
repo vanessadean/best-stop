@@ -16,9 +16,9 @@ class Restaurant < ActiveRecord::Base
     # sort: 2 = highest rated
 
     #searching
-    search = Yelp.client.search_by_coordinates(coordinates, params, locale) 
+    search = Yelp.client.search_by_coordinates(coordinates, params, locale)
 
-    search.businesses.each do |restaurant|
+    search.businesses.map do |restaurant|
       restaurant_name = restaurant.name
       begin
         restaurant_image = restaurant.image_url
