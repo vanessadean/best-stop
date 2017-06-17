@@ -329,11 +329,8 @@ $(function(){
 
   function removeMarkers() {
     markers.forEach(function(marker) {
-      markers[i].setMap(null);
+      marker.setMap(null);
     });
-    // for (i = 0; i < markers.length; i++) {
-    //   markers[i].setMap(null);
-    // }
   }
 
   function autoComplete() {

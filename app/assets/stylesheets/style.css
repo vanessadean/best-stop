@@ -3,21 +3,37 @@
 @import url(http://fonts.googleapis.com/css?family=Dosis);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 
+.background {
+  background: url(https://static.pexels.com/photos/5159/road-mountains-street-curve.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 #nav-rest, #nav-best {
   font-family: "Waiting for the Sunrise", arial;
+  color: white;
 }
 
 #nav-rest {
+  padding-top: 20px;
+  margin-left: 15px;
   font-size: 24px;
   text-transform: lowercase;
+  text-decoration: none;
+}
+
+#nav-rest:hover {
 }
 
 #nav-best {
+  padding-top: 5px;
   font-size: 36px;
 }
 
 #about {
-  margin-top: 100px;
+  margin-top: 0px;
   padding: 10px;
 }
 
@@ -53,13 +69,35 @@ input > p {
 
 #map, #directions-panel {
   margin-top: 25px;
-  margin-bottom: 400px;
+  margin-bottom: 10px;
   border: 5px solid #333;
+  height: 300px;
 }
 
-.navbar-wrapper {
+#directions-panel {
+  border: 5px solid #333;
+  background: white;
+  overflow: scroll;
+}
+
+.background-anchor {
+  height: 400px;
+}
+
+.navbar {
   background: rgb(128, 128, 128); /* Fall-back for browsers that don't support rgba */
   background: rgba(128, 128, 128, .90);
+}
+
+#search_again_button {
+  background: rgba(128, 128, 128, .90);
+  border: none;
+  margin-top: 10px;
+}
+
+#map_options_submit {
+  background: rgba(128, 128, 128, .90);
+  border: none;
 }
 
 .footer {
@@ -68,7 +106,6 @@ input > p {
   background-color: rgba(128, 128, 128, 1);
   color: white;
   text-align: center;
-  margin-top: 20px;
   padding-bottom: 5px;
   padding-top: 5px;
   width: 100%;
@@ -84,14 +121,12 @@ input > p {
   font-family: "Dosis", Helvetica, Arial, sans-serif;
   font-size: 25px;
   color: white;
-  margin-top: 25px;
 }
 
 #instructions {
   font-family: "Dosis", Helvetica, Arial, sans-serif;
   font-size: 25px;
   color: white;
-  margin-top: 25px;
   line-height: 1.1;
 }
 
@@ -103,8 +138,25 @@ input > p {
   margin-bottom: 5px;
 }
 
-.pac-container:after{
-    content:none !important;
+@media (max-width: 600px) {
+  #nav-rest {
+    padding-top: 0px;
+  }
+}
+
+@media (max-width: 400px) {
+  .footer {
+    font-size: 12px;
+  }
+  p, input {
+    font-size: 16px;
+  }
+  #map, #directions-panel {
+    height: 200px;
+  }
+  #about {
+    margin-top: 0px;
+  }
 }
 
 /* INPUTS */
