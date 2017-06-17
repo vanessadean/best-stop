@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe RestaurantsController, :type => :controller do
+describe RestaurantsController do
 
 end

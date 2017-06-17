@@ -2,6 +2,8 @@ class Restaurant < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 
+  def index
+  end
 
   def self.get_yelp(lat, lon, type, sort, mtd)
     #parameters to be passed in search, e.g. hardcoded flatiron latlon info

@@ -16,7 +16,7 @@ $(function(){
   $("#instructions").hide();
   $("#stop_point_miles").hide();
 
-  $("#method" ).change(function() {
+  $("#method").change(function() {
     $("#stop_point_miles").hide();
     $("#stop_point_hours").hide();
     $( "#method option:selected" ).each(function() {
@@ -212,6 +212,9 @@ $(function(){
     //sets the center of map bounds based on the stopping point
 
     for (i = 0; i < restaurants.length; i++) {
+    // restaurants.forEach(function(restaurant) {
+
+    // })
       //iterates through the list of restaurant options
 
       var position = { lat: restaurants[i][0], lng:  restaurants[i][1] };
@@ -325,9 +328,12 @@ $(function(){
   }
 
   function removeMarkers() {
-    for (i = 0; i < markers.length; i++) {
+    markers.forEach(function(marker) {
       markers[i].setMap(null);
-    }
+    });
+    // for (i = 0; i < markers.length; i++) {
+    //   markers[i].setMap(null);
+    // }
   }
 
   function autoComplete() {
