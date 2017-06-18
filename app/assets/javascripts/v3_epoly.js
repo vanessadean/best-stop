@@ -36,6 +36,8 @@
 *                                                                     *
 \*********************************************************************/
 
+var google = window.google;
+
 //first support methods that don't (yet) exist in v3
 google.maps.LatLng.prototype.distanceFrom = function(newLatLng) {
   var EarthRadiusMeters = 6378137.0; // meters
@@ -51,15 +53,15 @@ google.maps.LatLng.prototype.distanceFrom = function(newLatLng) {
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = EarthRadiusMeters * c;
   return d;
-}
+};
 
 // === A method which returns a GLatLng of a point a given distance along the path ===
 // === Returns null if the path is shorter than the specified distance ===
 google.maps.Polygon.prototype.GetPointAtDistance = function(metres) {
   // some awkward special cases
-  if (metres == 0) return this.getPath().getAt(0);
-  if (metres < 0) return null;
-  if (this.getPath().getLength() < 2) return null;
+  if (metres === 0) { return this.getPath().getAt(0); }
+  if (metres < 0) { return null; }
+  if (this.getPath().getLength() < 2) { return null; }
   var dist=0;
   var olddist=0;
   for (var i=1; (i < this.getPath().getLength() && dist < metres); i++) {
@@ -73,7 +75,7 @@ google.maps.Polygon.prototype.GetPointAtDistance = function(metres) {
   var p2= this.getPath().getAt(i-1);
   var m = (metres-olddist)/(dist-olddist);
   return new google.maps.LatLng( p1.lat() + (p2.lat()-p1.lat())*m, p1.lng() + (p2.lng()-p1.lng())*m);
-}
+};
 
 // === Copy all the above functions to GPolyline ===
 google.maps.Polyline.prototype.GetPointAtDistance   = google.maps.Polygon.prototype.GetPointAtDistance;

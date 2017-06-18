@@ -47,7 +47,6 @@ gem 'yelp'
 
 group :test, :development do
   gem "rspec-rails"
-  gem "capybara"
   gem "selenium-webdriver"
   gem "better_errors"
   gem "sprockets_better_errors"
@@ -59,6 +58,7 @@ group :test, :development do
   gem "pry"
   gem "guard-rspec", require: false
   gem "thin"
+  gem "jshint"
 end
 
 group :production do
